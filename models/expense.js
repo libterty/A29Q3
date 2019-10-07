@@ -7,7 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       category: DataTypes.STRING,
       date: DataTypes.STRING,
       merchant: DataTypes.STRING,
-      amount: DataTypes.INTEGER
+      amount: DataTypes.INTEGER,
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      }
     },
     {}
   );

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const TrackerList = require('../models/tracker');
+const db = require('../models');
+const Expense = db.Expense;
+const User = db.User;
 const { authenticated } = require('../config/auth');
 
 router.get('/new', authenticated, (req, res) => {
@@ -8,57 +10,78 @@ router.get('/new', authenticated, (req, res) => {
 });
 
 router.post('/new', authenticated, (req, res) => {
-  const tracker = new TrackerList({
-    userId: req.user._id,
+  Expense.create({
     name: req.body.name,
     category: req.body.category,
     date: req.body.date,
     merchant: req.body.merchant,
-    amount: req.body.amount
-  });
-  tracker.save(err => {
-    if (err) return res.status(400).send('錯誤要求');
-    return res.redirect('/');
-  });
+    amount: req.body.amount,
+    userId: req.user.id
+  })
+    .then(() => {
+      return res.redirect('/');
+    })
+    .catch(err => {
+      return res.status(422).json(err);
+    });
 });
 
 router.get('/:id/edit', authenticated, (req, res) => {
-  TrackerList.findOne(
-    { _id: req.params.id, userId: req.user._id },
-    (err, tracker) => {
-      if (err) return res.status(400).send('錯誤要求');
-      return res.render('edit', { trackers: tracker });
-    }
-  );
+  User.findByPk(req.user.id)
+    .then(user => {
+      if (!user) throw new Error('user not found');
+      return Expense.findOne({
+        where: {
+          Id: req.params.id,
+          UserId: req.user.id
+        }
+      });
+    })
+    .then(expense => {
+      return res.render('edit', { expense: expense });
+    });
 });
 
 router.put('/:id/edit', authenticated, (req, res) => {
-  TrackerList.findOne(
-    { _id: req.params.id, userId: req.user._id },
-    (err, tracker) => {
-      if (err) return res.status(400).send('錯誤要求');
-      tracker.name = req.body.name;
-      tracker.category = req.body.category;
-      tracker.date = req.body.date;
-      tracker.merchant = req.body.merchant;
-      tracker.amount = req.body.amount;
-
-      tracker.save(err => {
-        return res.redirect(`/`);
-      });
+  Expense.findOne({
+    where: {
+      Id: req.params.id,
+      userId: req.user.id
     }
-  );
+  })
+    .then(expense => {
+      expense.name = req.body.name;
+      expense.category = req.body.category;
+      expense.merchant = req.body.merchant;
+      expense.amount = req.body.amount;
+      expense.date = req.body.date;
+      return expense.save();
+    })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(error => {
+      return res.status(422).json(error);
+    });
 });
 
 router.delete('/:id/delete', authenticated, (req, res) => {
-  TrackerList.findOne(
-    { _id: req.params.id, userId: req.user._id },
-    (err, tracker) => {
-      tracker.remove(err => {
-        return res.redirect('/');
+  User.findByPk(req.user.id)
+    .then(user => {
+      if (!user) throw new Error('user not found');
+      return Expense.destroy({
+        where: {
+          UserId: req.user.id,
+          Id: req.params.id
+        }
       });
-    }
-  );
+    })
+    .then(() => {
+      return res.redirect('/');
+    })
+    .catch(error => {
+      return res.status(422).json(error);
+    });
 });
 
 module.exports = router;

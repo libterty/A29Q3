@@ -49,8 +49,8 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 //routes
-// app.use('/', require('./routes/home'))
-// app.use('/trackers', require('./routes/trackers'))
+app.use('/', require('./routes/home'));
+app.use('/trackers', require('./routes/trackers'));
 app.use('/users', require('./routes/user'));
 // app.use('/auth', require('./routes/auths'))
 
