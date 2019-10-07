@@ -1,0 +1,4 @@
+/node_modules
+/public
+.nyc_output
+/coverage

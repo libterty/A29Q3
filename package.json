@@ -1,0 +1,50 @@
+{
+    "name": "expense-tracker",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "lint": "eslint --format table --fix .",
+        "start": "npm run seeder & node app.js",
+        "dev": "nodemon app.js",
+        "seeder": "node models/seeds/seeder.js",
+        "test": "nyc --reporter=text-summary --reporter=lcov --reporter=html mocha",
+        "mocha": "mocha"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "connect-flash": "^0.1.1",
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^3.1.0",
+        "express-session": "^1.16.2",
+        "handlebars": "^4.2.0",
+        "just-handlebars-helpers": "^1.0.16",
+        "method-override": "^3.0.0",
+        "passport": "^0.4.0",
+        "passport-facebook": "^3.0.0",
+        "passport-local": "^1.0.0"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "eslint": "^6.4.0",
+        "eslint-config-prettier": "^6.3.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "mocha": "^6.2.0",
+        "nodemon": "^1.19.2",
+        "nyc": "^14.1.1",
+        "prettier": "^1.18.2",
+        "q": "^1.5.1",
+        "superagent": "^5.1.0",
+        "supertest": "^4.0.2"
+    },
+    "prettier": {
+        "semi": false,
+        "userTabs": true,
+        "singleQuote": true
+    }
+}
