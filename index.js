@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const port = process.env.PORT || 3000;
-// const { ECONNRESET, logErrors, notFound } = require('./config/middlewares')
+const { ECONNRESET, logErrors, notFound } = require('./config/middlewares');
 
 require('./config/passport')(passport);
 
@@ -52,11 +52,11 @@ app.set('view engine', 'handlebars');
 app.use('/', require('./routes/home'));
 app.use('/trackers', require('./routes/trackers'));
 app.use('/users', require('./routes/user'));
-// app.use('/auth', require('./routes/auths'))
+app.use('/auth', require('./routes/auths'));
 
-// app.use(ECONNRESET)
-// app.use(notFound)
-// app.use(logErrors)
+app.use(ECONNRESET);
+app.use(notFound);
+app.use(logErrors);
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`);
