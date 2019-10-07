@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Family Accounting</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="/stylesheet/bootstrap.css">
+  <link rel="stylesheet" href="/stylesheet/main.css">
+</head>
+
+<header>
+  <!-- navigation -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="家庭記帳本">
+        家庭記帳本
+      </a>
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn-light">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn-light">Login</a>
+      {{/if}}
+    </div>
+  </nav>
+
+  <div class="banner"></div>
+</header>
+
+{{{ body }}}
+
+<!--include javascript files here-->
+<script src="/javascript/popper.min.js"></script>
+<script src="/javascript/jquery-3.4.1.min.js"></script>
+<script src="/javascript/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<body>
+
+</body>
+
+</html>

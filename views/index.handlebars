@@ -1,0 +1,164 @@
+<!-- search bar -->
+<div class="container search-bar">
+  <div class="text-right mt-3">
+    <div class="btn-group">
+      <button type="button" class="btn btn-light dropdown-toggle month" data-toggle="dropdown">
+        月份
+      </button>
+      {{#if queryCategory}}
+      <div class="dropdown-menu drop-month">
+        <a class="dropdown-item" href="/?category={{queryCategory}}">全部</a>
+        <a class="dropdown-item" href='/?month=01&category={{queryCategory}}'>一月</a>
+        <a class="dropdown-item" href='/?month=02&category={{queryCategory}}'>二月</a>
+        <a class="dropdown-item" href='/?month=03&category={{queryCategory}}'>三月</a>
+        <a class="dropdown-item" href='/?month=04&category={{queryCategory}}'>四月</a>
+        <a class="dropdown-item" href='/?month=05&category={{queryCategory}}'>五月</a>
+        <a class="dropdown-item" href='/?month=06&category={{queryCategory}}'>六月</a>
+        <a class="dropdown-item" href='/?month=07&category={{queryCategory}}'>七月</a>
+        <a class="dropdown-item" href='/?month=08&category={{queryCategory}}'>八月</a>
+        <a class="dropdown-item" href='/?month=09&category={{queryCategory}}'>九月</a>
+        <a class="dropdown-item" href='/?month=10&category={{queryCategory}}'>十月</a>
+        <a class="dropdown-item" href='/?month=11&category={{queryCategory}}'>十一月</a>
+        <a class="dropdown-item" href='/?month=12&category={{queryCategory}}'>十二月</a>
+      </div>
+      {{else}}
+      <div class="dropdown-menu drop-month">
+        <a class="dropdown-item" href="/">全部</a>
+        <a class="dropdown-item" href='/?month=01'>一月</a>
+        <a class="dropdown-item" href='/?month=02'>二月</a>
+        <a class="dropdown-item" href='/?month=03'>三月</a>
+        <a class="dropdown-item" href='/?month=04'>四月</a>
+        <a class="dropdown-item" href='/?month=05'>五月</a>
+        <a class="dropdown-item" href='/?month=06'>六月</a>
+        <a class="dropdown-item" href='/?month=07'>七月</a>
+        <a class="dropdown-item" href='/?month=08'>八月</a>
+        <a class="dropdown-item" href='/?month=09'>九月</a>
+        <a class="dropdown-item" href='/?month=10'>十月</a>
+        <a class="dropdown-item" href='/?month=11'>十一月</a>
+        <a class="dropdown-item" href='/?month=12'>十二月</a>
+      </div>
+      {{/if}}
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+        類別
+      </button>
+      {{#if queryMonth}}
+      <div class="dropdown-menu">
+        <a class="dropdown-item" value="" href="/?month={{queryMonth}}" style="height: 32px;">全部</a>
+        <a class="dropdown-item" value="home" href='/?month={{queryMonth}}&category=home'>home</a>
+        <a class="dropdown-item" value="traffic" href='/?month={{queryMonth}}&category=traffic'>traffic</a>
+        <a class="dropdown-item" value="foods" href='/?month={{queryMonth}}&category=foods'>foods</a>
+        <a class="dropdown-item" value="entertainment" href='/?month={{queryMonth}}&category=entertainment'>entertainment</a>
+        <a class="dropdown-item" value="others" href='/?month={{queryMonth}}&category=others'>others</a>
+      </div>
+      {{else}}
+      <div class="dropdown-menu">
+        <a class="dropdown-item" value="" href="/" style="height: 32px;">全部</a>
+        <a class="dropdown-item" value="home" href='/?category=home'>home</a>
+        <a class="dropdown-item" value="traffic" href='/?category=traffic'>traffic</a>
+        <a class="dropdown-item" value="foods" href='/?category=foods'>foods</a>
+        <a class="dropdown-item" value="entertainment" href='/?category=entertainment'>entertainment</a>
+        <a class="dropdown-item" value="others" href='/?category=others'>others</a>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<div class="col-3">
+
+</div>
+
+<!-- restaurant list -->
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-md-10 col-12 mx-auto">
+      {{#if summary}}
+      <div class="list-group">
+        <div class="d-flex w-100 justify-content-center">
+          <h2 class="mb-1">總金額：</h2>
+          <p style="font-size: 5rem; padding-left: 1.0rem; color: #FF8C00;">{{summary}}</p>
+        </div>
+        </div>
+      {{/if}}
+      <div class="list-group">
+        {{#each trackers}}
+        <div class="group" style="display: flex; flex-flow: row;">
+          <a href="/trackers/{{this._id}}/edit" class="list-group-item list-group-item-action flex-column align-items-start">
+            {{#if (eq this.category 'home')}}
+            <i class="fas fa-home"></i>
+            {{/if}}
+            {{#if (eq this.category 'traffic')}}
+            <i class="fas fa-shuttle-van"></i>
+            {{/if}}
+            {{#if (eq this.category 'entertainment')}}
+            <i class="fas fa-grin-beam"></i>
+            {{/if}}
+            {{#if (eq this.category 'foods')}}
+            <i class="fas fa-utensils"></i>
+            {{/if}}
+            {{#if (eq this.category 'others')}}
+            <i class="fas fa-pen"></i>
+            {{/if}}
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{this.name}}</h5>
+              <small> - {{this.merchant}}</small>
+              <small>{{this.amount}} &dollar;</small>
+            </div>
+            <p class="mb-1">{{this.category}}</p>
+            <small>{{this.date}}</small>
+          </a>
+
+          <div class="d-flex w-100 justify-content-center flex-row" style="align-items: center;">
+            <div class="overlay">
+              <a class="info" href="/trackers/{{{this._id}}}/edit" style="padding-right: 0.5rem;">Edit</a>
+              <a class="info" data-toggle="modal" data-target="#trigger-deleteItem-{{this._id}}">Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delete attention -->
+        <div class="modal fade" id="trigger-deleteItem-{{this._id}}" tabindex="-1" role="dialog"
+          aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">執行刪除確認</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                請確定要刪除這筆記錄-{{this.name}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="/trackers/{{this._id}}/delete?_method=DELETE" method="POST" style="display: inline;">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {{/each}}
+
+      </div>
+      <a class="btn btn-primary d-inline-block ml-2" href="/trackers/new">新增支出<i class="fas fa-plus ml-2"></i></a>
+
+    </div>
+
+    <!--searching result no matches-->
+    {{#unless trackers}}
+    <div class="col-12 col-md-10 mx-auto">
+      <img class="rounded mx-auto d-block mb-4 w-100"
+        src="https://raw.githubusercontent.com/YunYuLo/restaurant_list/master/public/img/NoRecordFound.png"
+        alt="NoMatchImage" />
+    </div>
+    {{/unless}}
+
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="container py-5">
+
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> 您正在修改記帳紀錄 </h5>
+          <hr>
+          <form method="POST" action="/trackers/{{{trackers._id}}}/edit?_method=PUT" style="display: inline">
+            <div class="form-group form-row">
+              <label for="name" class="col-md-3 col-form-label">
+                支出名稱 *
+              </label>
+              <div class="col-md-8">
+                <input type="name" name="name" class="form-control" id="name" placeholder="中文名稱"
+                  value="{{{trackers.name}}}" required>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="category" class="col-md-3 col-form-label">
+                支出類別 *
+              </label>
+              <div class="col-md-8">
+                <select type="text" name="category" class="custom-select form-control" id="category" placeholder="home、traffic、entertainment、foods、others" value="{{{trackers.category}}}" required>
+                  <option name="category" value="home">home</option>
+                  <option name="category" value="traffic">traffic</option>
+                  <option name="category" value="entertainment">entertainment</option>
+                  <option name="category" value="foods">foods</option>
+                  <option name="category" value="others">others</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-row" id="datetimepicker">
+              <label for="date" class="col-md-3 col-form-label">
+                支出日期 *
+              </label>
+              <div class="col-md-8">
+                <input type="text" name="date" class="form-control" id="date" data-provide="datepicker" data-date-format="yyyy/mm/dd"
+                  placeholder="支出日期" value="{{{trackers.date}}}" cols="48" rows="2" readonly>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="merchant" class="col-md-3 col-form-label">
+                支出店家 *
+              </label>
+              <div class="col-md-8">
+                <input type="merchant" name="merchant" class="form-control" id="merchant" placeholder="店家名稱"
+                  value="{{{trackers.merchant}}}" required>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="amount" class="col-md-3 col-form-label">
+                支出金額 *
+              </label>
+              <div class="col-md-8">
+                <input type="number" name="amount" class="form-control" id="amount" min="0" max="20000" step="1"
+                  placeholder="支出金額" value="{{{trackers.amount}}}" required>
+              </div>
+            </div>
+
+            <button class="btn btn-success" type="submit">Save</button>
+          </form>
+          <a class="btn btn-info px-3 mx-3" href="/">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
