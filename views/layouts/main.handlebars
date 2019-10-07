@@ -23,6 +23,9 @@
         家庭記帳本
       </a>
       {{#if isAuthenticated}}
+      <div><h6>您有{{expenses.length}}筆記帳紀錄</h6></div>
+      {{/if}}
+      {{#if isAuthenticated}}
       <a href="/users/logout" class="btn btn-light">Logout</a>
       {{else}}
       <a href="/users/login" class="btn btn-light">Login</a>

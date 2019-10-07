@@ -3,7 +3,11 @@
   <div class="text-right mt-3">
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle month" data-toggle="dropdown">
+        {{#if queryMonth}}
+        {{queryMonth}}月
+        {{else}}
         月份
+        {{/if}}
       </button>
       {{#if queryCategory}}
       <div class="dropdown-menu drop-month">
@@ -41,7 +45,11 @@
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+        {{#if queryCategory}}
+        {{queryCategory}}
+        {{else}}
         類別
+        {{/if}}
       </button>
       {{#if queryMonth}}
       <div class="dropdown-menu">
@@ -152,7 +160,7 @@
     </div>
 
     <!--searching result no matches-->
-    {{#unless trackers}}
+    {{#unless expenses}}
     <div class="col-12 col-md-10 mx-auto">
       <img class="rounded mx-auto d-block mb-4 w-100"
         src="https://raw.githubusercontent.com/YunYuLo/restaurant_list/master/public/img/NoRecordFound.png"
