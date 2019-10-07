@@ -1,7 +1,7 @@
 # Expense Tracker SQL
 
 - Coding style follow eslint standard, javascript standard
-- Test-Driven-Development concept, following Red–Green–Refactor cycle
+- Unit Test is included for reference
 
 ## Environment Setup
 - Node.js 4.0 or above
@@ -11,7 +11,7 @@
 
 Download the project from github
 ```
-git clone https://github.com/libterty/Expense-Tracker.git
+git clone https://github.com/libterty/A29Q3.git
 ```
 
 To experience the function of FB login, you will need to create your own individual app in FB and place in your own `.env` at root path of the project
